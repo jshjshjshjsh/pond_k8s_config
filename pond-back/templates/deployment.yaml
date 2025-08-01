@@ -70,29 +70,37 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          env: # values.yaml에서 정의한 환경변수 주입
+          containers:
+        - name: {{ .Chart.Name }}
+          # ... (image, ports 등은 동일) ...
+          env:
+            # 1. values.yaml에서 정의한 일반 설정들을 주입합니다.
             - name: SPRING_DATASOURCE_URL
               value: {{ .Values.env.SPRING_DATASOURCE_URL | quote }}
             - name: SPRING_DATA_REDIS_HOST
               value: {{ .Values.env.SPRING_DATA_REDIS_HOST | quote }}
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: {{ .Values.env.SPRING_JPA_HIBERNATE_DDL_AUTO | quote }}
+            - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY
+              value: {{ .Values.env.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY | quote }}
             - name: OTEL_SERVICE_NAME
               value: {{ .Values.env.OTEL_SERVICE_NAME | quote }}
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: {{ .Values.env.OTEL_EXPORTER_OTLP_ENDPOINT | quote }}
+
+            # 2. MySQL 접속 정보를 'mysql-credentials' Secret에서 가져옵니다.
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
-                  # Bitnami 차트가 사용하는 Secret 이름을 사용합니다.
                   name: mysql-credentials
-                  # Bitnami 차트의 사용자 이름 키(key)는 'mysql-user'입니다.
                   key: mysql-user
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  # Bitnami 차트가 사용하는 Secret 이름을 사용합니다.
                   name: mysql-credentials
-                  # Bitnami 차트의 비밀번호 키(key)는 'mysql-password'입니다.
                   key: mysql-password
+
+            # 3. JWT와 Gemini 키를 'pond-back-secrets' Secret에서 가져옵니다.
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
