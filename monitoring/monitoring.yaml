@@ -66,7 +66,11 @@ spec:
       containers:
         - name: otel-collector
           image: otel/opentelemetry-collector-contrib:0.108.0
-          command: ["--config=/conf/otel-collector-config.yaml"]
+          # ✅ 아래 command와 args 부분을 수정했습니다.
+          # 실행할 실제 명령어를 지정합니다.
+          command: ["/otelcol-contrib"]
+          # 명령어에 전달할 인자를 지정합니다.
+          args: ["--config=/conf/otel-collector-config.yaml"]
           ports:
             - containerPort: 4317
             - containerPort: 4318
