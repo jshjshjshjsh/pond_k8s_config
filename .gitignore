@@ -1,3 +1,2 @@
 argocd/repo-secret.yaml
-temp-db-secret.yaml
-temp-mysql-secret.yaml
+temp*

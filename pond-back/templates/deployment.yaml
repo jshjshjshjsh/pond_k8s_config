@@ -93,6 +93,16 @@ spec:
                   name: mysql-credentials
                   # Bitnami 차트의 비밀번호 키(key)는 'mysql-password'입니다.
                   key: mysql-password
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: pond-back-secrets
+                  key: jwt-secret
+            - name: GEMINI_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: pond-back-secrets
+                  key: gemini-api-secret
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
