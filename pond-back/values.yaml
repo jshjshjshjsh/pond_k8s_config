@@ -120,3 +120,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+env:
+  # DB와 Redis 주소는 Kubernetes 서비스 이름으로 변경
+  SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/pond"
+  SPRING_DATA_REDIS_HOST: "redis"
+  # OTel 설정 추가
+  OTEL_SERVICE_NAME: "pond-back"
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4317"
