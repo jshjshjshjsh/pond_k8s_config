@@ -4,8 +4,6 @@ kind: Application
 metadata:
   name: pond-back
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
