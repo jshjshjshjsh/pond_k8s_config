@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git' # 본인의 설정 저장소 주소
+    targetRevision: HEAD
+    # ✨ Helm 차트가 아니므로 'path'에 monitoring.yaml이 있는 폴더 경로를 지정합니다.
+    path: monitoring
+  destination:
+    server: https://kubernetes.default.svc
+    # ✨ 모니터링 관련 도구들은 별도의 'monitoring' 네임스페이스에 배포하는 것이 좋습니다.
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true # 'monitoring' 네임스페이스가 없다면 자동으로 생성합니다.

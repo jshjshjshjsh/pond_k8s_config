@@ -1,0 +1,36 @@
+# pond-k8s-config/monitoring/monitoring.yaml
+
+# 1. OpenTelemetry Collector Service & Deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: otel-collector
+spec:
+  ports:
+    - name: otlp-grpc
+      port: 4317
+      protocol: TCP
+      targetPort: 4317
+  selector:
+    app: otel-collector
+---
+apiVersion: apps/v1
+kind: Deployment
+# ... (OTel Collector 배포 설정 - 공식 문서 참고) ...
+
+# 2. Jaeger All-in-One Deployment & Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger
+spec:
+  ports:
+    - name: query
+      port: 16686
+      targetPort: 16686
+  selector:
+    app: jaeger
+---
+apiVersion: apps/v1
+kind: Deployment
+# ... (Jaeger 배포 설정 - 공식 문서 참고) ...
