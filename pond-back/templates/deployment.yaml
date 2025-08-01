@@ -82,13 +82,17 @@ spec:
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: db-credentials
-                  key: username
+                  # Bitnami 차트가 사용하는 Secret 이름을 사용합니다.
+                  name: mysql-credentials
+                  # Bitnami 차트의 사용자 이름 키(key)는 'mysql-user'입니다.
+                  key: mysql-user
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-credentials
-                  key: password
+                  # Bitnami 차트가 사용하는 Secret 이름을 사용합니다.
+                  name: mysql-credentials
+                  # Bitnami 차트의 비밀번호 키(key)는 'mysql-password'입니다.
+                  key: mysql-password
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
