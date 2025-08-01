@@ -1,6 +1,37 @@
-# pond-k8s-config/monitoring/monitoring.yaml
+# 1. OpenTelemetry Collector ConfigMap (설정 파일)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-config
+data:
+  otel-collector-config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: "0.0.0.0:4317"
+          http:
+            endpoint: "0.0.0.0:4318"
+    processors:
+      batch:
+    exporters:
+      # Jaeger로 데이터를 내보내도록 설정
+      jaeger:
+        endpoint: "jaeger:14250"
+        tls:
+          insecure: true
+      # 디버깅을 위해 로그를 출력
+      logging:
+        verbosity: detailed
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [jaeger, logging]
 
-# 1. OpenTelemetry Collector Service & Deployment
+---
+# 2. OpenTelemetry Collector Service & Deployment
 apiVersion: v1
 kind: Service
 metadata:
@@ -11,20 +42,54 @@ spec:
       port: 4317
       protocol: TCP
       targetPort: 4317
+    - name: otlp-http
+      port: 4318
+      protocol: TCP
+      targetPort: 4318
   selector:
     app: otel-collector
 ---
 apiVersion: apps/v1
 kind: Deployment
-# ... (OTel Collector 배포 설정 - 공식 문서 참고) ...
+metadata:
+  name: otel-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: otel-collector
+  template:
+    metadata:
+      labels:
+        app: otel-collector
+    spec:
+      containers:
+        - name: otel-collector
+          image: otel/opentelemetry-collector-contrib:0.108.0
+          command: ["--config=/conf/otel-collector-config.yaml"]
+          ports:
+            - containerPort: 4317
+            - containerPort: 4318
+          volumeMounts:
+            - name: otel-collector-config-vol
+              mountPath: /conf
+      volumes:
+        - name: otel-collector-config-vol
+          configMap:
+            name: otel-collector-config
 
-# 2. Jaeger All-in-One Deployment & Service
+---
+# 3. Jaeger All-in-One Deployment & Service
 apiVersion: v1
 kind: Service
 metadata:
   name: jaeger
 spec:
+  type: ClusterIP
   ports:
+    - name: grpc
+      port: 14250
+      targetPort: 14250
     - name: query
       port: 16686
       targetPort: 16686
@@ -33,4 +98,24 @@ spec:
 ---
 apiVersion: apps/v1
 kind: Deployment
-# ... (Jaeger 배포 설정 - 공식 문서 참고) ...
+metadata:
+  name: jaeger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger
+  template:
+    metadata:
+      labels:
+        app: jaeger
+    spec:
+      containers:
+        - name: jaeger
+          image: jaegertracing/all-in-one:1.59
+          ports:
+            - containerPort: 14250
+            - containerPort: 16686
+          env:
+            - name: COLLECTOR_OTLP_ENABLED
+              value: "true"
