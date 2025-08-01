@@ -1,8 +1,0 @@
-# Redis 설정을 정의합니다.
-architecture: standalone
-auth:
-  enabled: false # 로컬 테스트이므로 비밀번호는 사용하지 않음
-master:
-  persistence:
-    enabled: true # 데이터를 영구적으로 저장하도록 설정
-    size: 4Gi
