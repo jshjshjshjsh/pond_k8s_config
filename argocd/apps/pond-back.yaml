@@ -14,7 +14,7 @@ spec:
       valueFiles:
       - values.yaml
       values: |
-        fullnameOverride: "pond_back"
+        fullnameOverride: "pond-back"
   destination:
     server: https://kubernetes.default.svc
     namespace: default
