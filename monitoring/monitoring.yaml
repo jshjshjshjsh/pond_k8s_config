@@ -15,9 +15,10 @@ data:
     processors:
       batch:
     exporters:
-      # Jaeger로 데이터를 내보내도록 설정
-      jaeger:
-        endpoint: "jaeger:14250"
+      # ✅ 'jaeger' 대신 'otlp'를 사용하도록 수정했습니다.
+      otlp:
+        # Jaeger 서비스가 OTLP를 수신하는 기본 gRPC 포트(4317)로 엔드포인트를 지정합니다.
+        endpoint: "jaeger:4317"
         tls:
           insecure: true
       # 디버깅을 위해 로그를 출력
@@ -28,7 +29,8 @@ data:
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [jaeger, logging]
+          # ✅ 여기도 'otlp'로 변경합니다.
+          exporters: [otlp, logging]
 
 ---
 # 2. OpenTelemetry Collector Service & Deployment
@@ -49,7 +51,7 @@ spec:
   selector:
     app: otel-collector
 ---
-apiVersion: apps/v1
+apiVersion: apps:v1
 kind: Deployment
 metadata:
   name: otel-collector
@@ -66,10 +68,7 @@ spec:
       containers:
         - name: otel-collector
           image: otel/opentelemetry-collector-contrib:0.108.0
-          # ✅ 아래 command와 args 부분을 수정했습니다.
-          # 실행할 실제 명령어를 지정합니다.
           command: ["/otelcol-contrib"]
-          # 명령어에 전달할 인자를 지정합니다.
           args: ["--config=/conf/otel-collector-config.yaml"]
           ports:
             - containerPort: 4317
@@ -91,6 +90,10 @@ metadata:
 spec:
   type: ClusterIP
   ports:
+    # ✅ Jaeger가 OTLP gRPC를 수신할 포트(4317)를 추가합니다.
+    - name: otlp-grpc
+      port: 4317
+      targetPort: 4317
     - name: grpc
       port: 14250
       targetPort: 14250
@@ -118,6 +121,8 @@ spec:
         - name: jaeger
           image: jaegertracing/all-in-one:1.59
           ports:
+            # ✅ OTLP gRPC 포트를 컨테이너에 노출시킵니다.
+            - containerPort: 4317
             - containerPort: 14250
             - containerPort: 16686
           env:
