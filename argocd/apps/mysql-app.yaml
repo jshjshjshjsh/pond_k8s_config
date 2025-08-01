@@ -13,6 +13,11 @@ spec:
       values: |
         auth:
           existingSecret: "mysql-credentials"
+          secretKeys:
+            userKey: "mysql-user"
+            passwordKey: "mysql-password"
+            rootPasswordKey: "mysql-root-password"
+          database: "pond"
         primary:
           persistence:
             enabled: true
