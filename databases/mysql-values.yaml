@@ -1,0 +1,7 @@
+# MySQL 설정을 정의합니다.
+auth:
+  existingSecret: "mysql-credentials"
+primary:
+  persistence:
+    enabled: true # 데이터를 영구적으로 저장하도록 설정
+    size: 8Gi     # 데이터 저장을 위한 디스크 공간

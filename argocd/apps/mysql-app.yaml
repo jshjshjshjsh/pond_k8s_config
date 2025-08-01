@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mysql
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://charts.bitnami.com/bitnami' # 1단계에서 추가한 Helm 저장소
+    chart: mysql                                  # 사용할 차트 이름
+    targetRevision: 9.16.1                        # 안정적인 차트 버전 명시
+    helm:
+      # ✨ Argo CD의 특별한 기능: $values를 사용하면
+      # pond-k8s-config 저장소에 있는 설정 파일을 참조할 수 있습니다.
+      valueFiles:
+        - $values/databases/mysql-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [CreateNamespace=true]
