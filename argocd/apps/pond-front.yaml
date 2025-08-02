@@ -34,3 +34,4 @@ spec:
     # ✨ syncOptions를 통해 배포되지 않은 리소스도 자동으로 생성하도록 합니다.
     syncOptions:
     - CreateNamespace=true
+    
