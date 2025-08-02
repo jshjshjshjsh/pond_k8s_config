@@ -137,3 +137,4 @@ env:
   OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector.monitoring:4318/v1/traces"
   MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "1.0"
   MANAGEMENT_OTLP_TRACING_ENDPOINT: "http://otel-collector.monitoring:4318/v1/traces"
+  
