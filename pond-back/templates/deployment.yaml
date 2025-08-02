@@ -68,6 +68,11 @@ spec:
               value: {{ .Values.env.OTEL_SERVICE_NAME | quote }}
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: {{ .Values.env.OTEL_EXPORTER_OTLP_ENDPOINT | quote }}
+            - name: MANAGEMENT_TRACING_SAMPLING_PROBABILITY
+              value: {{ .Values.env.MANAGEMENT_TRACING_SAMPLING_PROBABILITY | quote }}
+            - name: MANAGEMENT_OTLP_TRACING_ENDPOINT
+              value: {{ .Values.env.MANAGEMENT_OTLP_TRACING_ENDPOINT | quote }}
+
 
             # 2. MySQL 접속 정보를 'mysql-credentials' Secret에서 가져옵니다.
             - name: SPRING_DATASOURCE_USERNAME
