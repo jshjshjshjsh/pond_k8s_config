@@ -133,3 +133,5 @@ env:
   # 3. OTel (모니터링) 설정
   OTEL_SERVICE_NAME: "pond-back"
   OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector.monitoring:4317"
+  MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "1.0"
+  MANAGEMENT_OTLP_TRACING_ENDPOINT: "http://otel-collector.monitoring:4317"
