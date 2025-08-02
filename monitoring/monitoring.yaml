@@ -1,4 +1,6 @@
-# 1. OpenTelemetry Collector ConfigMap (설정 파일)
+# pond_k8s_config/monitoring/monitoring.yaml
+
+# 1. OpenTelemetry Collector ConfigMap
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -27,7 +29,6 @@ data:
           receivers: [otlp]
           processors: [batch]
           exporters: [otlp, logging]
-
 ---
 # 2. OpenTelemetry Collector Service & Deployment
 apiVersion: v1
@@ -36,18 +37,17 @@ metadata:
   name: otel-collector
 spec:
   ports:
-    - name: otlp-grpc
-      port: 4317
-      protocol: TCP
-      targetPort: 4317
-    - name: otlp-http
-      port: 4318
-      protocol: TCP
-      targetPort: 4318
+  - name: otlp-grpc
+    port: 4317
+    protocol: TCP
+    targetPort: 4317
+  - name: otlp-http
+    port: 4318
+    protocol: TCP
+    targetPort: 4318
   selector:
     app: otel-collector
 ---
-# ✅ 'apps:v1'을 'apps/v1'으로 수정했습니다.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -63,21 +63,20 @@ spec:
         app: otel-collector
     spec:
       containers:
-        - name: otel-collector
-          image: otel/opentelemetry-collector-contrib:0.108.0
-          command: ["/otelcol-contrib"]
-          args: ["--config=/conf/otel-collector-config.yaml"]
-          ports:
-            - containerPort: 4317
-            - containerPort: 4318
-          volumeMounts:
-            - name: otel-collector-config-vol
-              mountPath: /conf
-      volumes:
+      - name: otel-collector
+        image: otel/opentelemetry-collector-contrib:0.108.0
+        command: ["/otelcol-contrib"]
+        args: ["--config=/conf/otel-collector-config.yaml"]
+        ports:
+        - containerPort: 4317
+        - containerPort: 4318
+        volumeMounts:
         - name: otel-collector-config-vol
-          configMap:
-            name: otel-collector-config
-
+          mountPath: /conf
+      volumes:
+      - name: otel-collector-config-vol
+        configMap:
+          name: otel-collector-config
 ---
 # 3. Jaeger All-in-One Deployment & Service
 apiVersion: v1
@@ -87,15 +86,15 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - name: otlp-grpc
-      port: 4317
-      targetPort: 4317
-    - name: grpc
-      port: 14250
-      targetPort: 14250
-    - name: query
-      port: 16686
-      targetPort: 16686
+  - name: otlp-grpc
+    port: 4317
+    targetPort: 4317
+  - name: grpc
+    port: 14250
+    targetPort: 14250
+  - name: query
+    port: 16686
+    targetPort: 16686
   selector:
     app: jaeger
 ---
@@ -114,12 +113,12 @@ spec:
         app: jaeger
     spec:
       containers:
-        - name: jaeger
-          image: jaegertracing/all-in-one:1.59
-          ports:
-            - containerPort: 4317
-            - containerPort: 14250
-            - containerPort: 16686
-          env:
-            - name: COLLECTOR_OTLP_ENABLED
-              value: "true"
+      - name: jaeger
+        image: jaegertracing/all-in-one:1.59
+        ports:
+        - containerPort: 4317
+        - containerPort: 14250
+        - containerPort: 16686
+        env:
+        - name: COLLECTOR_OTLP_ENABLED
+          value: "true"

@@ -8,18 +8,15 @@ metadata:
 spec:
   project: default
   source:
-    # Git 저장소 주소
-    repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git' 
+    repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git'
     targetRevision: HEAD
-    # 실제 모니터링 리소스들이 정의된 폴더 경로
     path: monitoring
   destination:
     server: https://kubernetes.default.svc
-    # 모니터링 관련 리소스들이 배포될 네임스페이스
     namespace: monitoring
   syncPolicy:
     automated:
       prune: true
-      self Heal: true
+      selfHeal: true
     syncOptions:
-    - CreateNamespace=true # 'monitoring' 네임스페이스 자동 생성
+    - CreateNamespace=true
