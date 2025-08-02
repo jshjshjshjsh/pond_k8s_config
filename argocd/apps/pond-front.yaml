@@ -18,6 +18,8 @@ spec:
       # pond-front/values.yaml 파일을 사용하도록 지정합니다.
       valueFiles:
       - values.yaml
+      values: |
+        fullnameOverride: "pond-front"
   destination:
     # 이 애플리케이션이 배포될 Kubernetes 클러스터 주소입니다.
     server: https://kubernetes.default.svc
