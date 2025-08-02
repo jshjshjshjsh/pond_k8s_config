@@ -17,8 +17,8 @@ data:
     processors:
       batch:
     exporters:
-      jaeger:
-        endpoint: "jaeger:14250"
+      otlp:
+        endpoint: "jaeger:4317"
         tls:
           insecure: true
       logging:
@@ -28,7 +28,7 @@ data:
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [jaeger, logging]
+          exporters: [otlp, logging]
 ---
 # 2. OpenTelemetry Collector Service & Deployment
 apiVersion: v1
