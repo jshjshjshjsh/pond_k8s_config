@@ -110,6 +110,7 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 env:
+  SPRING_PROFILES_ACTIVE: "prod"
   # 1. DB & Redis & JPA 설정
   SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/pond?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
   SPRING_DATA_REDIS_HOST: "redis-master"
