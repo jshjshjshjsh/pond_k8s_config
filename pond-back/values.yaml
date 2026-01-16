@@ -8,7 +8,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/jshjshjshjsh/pond_back # GHCR 이미지 주소
   pullPolicy: Always
-  tag: "a005447"
+  tag: "2c47fe9"
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets:
   - name: ghcr-secret
