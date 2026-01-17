@@ -113,7 +113,7 @@ env:
   # 1. DB & Redis & JPA 설정
   SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/pond?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
   SPRING_DATA_REDIS_HOST: "redis-master"
-  SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "validate"
   # 2. 로깅 레벨 설정
   LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: "DEBUG"
   LOGGING_LEVEL_IO_OPENTELEMETRY: "DEBUG"
@@ -123,3 +123,6 @@ env:
   OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector.monitoring:4318/v1/traces"
   MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "1.0"
   MANAGEMENT_OTLP_TRACING_ENDPOINT: "http://otel-collector.monitoring:4318/v1/traces"
+  # 4. Flyway 적용
+  SPRING_FLYWAY_ENABLED : "true"
+  SPRING_FLYWAY_BASELINE_ON_MIGRATE: "true"
