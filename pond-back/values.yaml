@@ -8,7 +8,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/jshjshjshjsh/pond_back # GHCR 이미지 주소
   pullPolicy: Always
-  tag: 7e01007
+  tag: "2c47fe9"
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets:
   - name: ghcr-secret
@@ -110,6 +110,7 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 env:
+  SPRING_PROFILES_ACTIVE: "prod"
   # 1. DB & Redis & JPA 설정
   SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/pond?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
   SPRING_DATA_REDIS_HOST: "redis-master"
