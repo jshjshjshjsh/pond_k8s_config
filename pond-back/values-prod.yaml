@@ -1,0 +1,14 @@
+replicaCount: 2  # 무중단 배포를 위해 2개
+
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "250m"
+  limits:
+    memory: "1024Mi" # 1GB
+    cpu: "1000m"     # 1 Core
+
+env:
+  SPRING_PROFILES_ACTIVE: "prod"
+  SPRING_DATASOURCE_URL: "jdbc:mysql://pond-mysql:3306/pond?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "validate"
