@@ -6,22 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://charts.bitnami.com/bitnami'
-    chart: mysql
-    targetRevision: 9.16.1
-    helm:
-      values: |
-        auth:
-          existingSecret: "mysql-credentials"
-          secretKeys:
-            userKey: "mysql-user"
-            passwordKey: "mysql-password"
-            rootPasswordKey: "mysql-root-password"
-          database: "pond"
-        primary:
-          persistence:
-            enabled: true
-            size: 8Gi
+    repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git'
+    targetRevision: HEAD
+    path: database
   destination:
     server: https://kubernetes.default.svc
     namespace: default
