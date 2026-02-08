@@ -4,10 +4,9 @@ metadata:
   name: argocd-ingress
   namespace: argocd
   annotations:
-    # ArgoCD는 기본이 HTTPS라 백엔드로 보낼 때 HTTPS로 보내야 함
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    # SSL 통과 설정
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 spec:
   ingressClassName: nginx
   rules:
