@@ -8,7 +8,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/jshjshjshjsh/pond_back # GHCR 이미지 주소
   pullPolicy: Always
-  tag: "0fb3af8"
+  tag: "8d8158b"
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets:
   - name: ghcr-secret
@@ -125,5 +125,5 @@ env:
   MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "1.0"
   MANAGEMENT_OTLP_TRACING_ENDPOINT: "http://otel-collector.monitoring:4318/v1/traces"
   # 4. Flyway 적용
-  SPRING_FLYWAY_ENABLED : "true"
+  SPRING_FLYWAY_ENABLED: "true"
   SPRING_FLYWAY_BASELINE_ON_MIGRATE: "true"
