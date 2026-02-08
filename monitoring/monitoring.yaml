@@ -124,3 +124,23 @@ spec:
           value: "true"
         - name: COLLECTOR_OTLP_GRPC_HOST_PORT
           value: ":4317"
+---
+# 4. Jaeger Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jaeger-ingress
+  namespace: monitoring # ✅ Jaeger가 있는 곳
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: jaeger.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jaeger
+                port:
+                  number: 16686 # Jaeger UI 포트
