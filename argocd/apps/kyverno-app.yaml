@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # 앱 삭제 시 리소스도 같이 삭제
+spec:
+  project: default
+  source:
+    chart: kyverno
+    repoURL: https://kyverno.github.io/kyverno/
+    targetRevision: 3.3.6
+    helm:
+      releaseName: kyverno
+      valueFiles:
+      # Git 리포지토리에 있는 values.yaml을 참조하도록 설정 (고급 설정)
+      # 지금은 복잡하니 생략하거나 기본값 사용. 나중에 필요하면 추가.
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kyverno
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

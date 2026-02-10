@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-namespace-not-default
+  annotations:
+    policies.kyverno.io/title: Block Default Namespace
+    policies.kyverno.io/category: Multi-Tenancy
+    policies.kyverno.io/description: >-
+      The default namespace should not be used.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: validate-namespace
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+                - Deployment
+                - Service
+                - Ingress
+      validate:
+        message: "Using 'default' namespace is prohibited. Please move to 'pond'."
+        pattern:
+          metadata:
+            namespace: "!default"
