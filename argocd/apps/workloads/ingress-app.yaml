@@ -15,8 +15,10 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     # Ingress는 default 네임스페이스에 있는 서비스들을 연결해 줍니다.
-    namespace: default
+    namespace: pond
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true

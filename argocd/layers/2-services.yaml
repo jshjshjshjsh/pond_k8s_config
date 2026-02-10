@@ -1,26 +1,22 @@
-# pond-k8s-config/argocd/apps/pond-back.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pond-back
+  name: layer-services
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "1" # 인프라 다음에 실행되도록 웨이브 설정
 spec:
   project: default
   source:
     repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git'
     targetRevision: HEAD
-    path: pond-back # pond-back Helm 차트 경로
-    helm:
-      valueFiles:
-      - values.yaml
-      values: |
-        fullnameOverride: "pond-back"
+    path: argocd/apps/services
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-    - CreateNamespace=true

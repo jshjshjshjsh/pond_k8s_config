@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mysql
+  name: redis
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git'
     targetRevision: HEAD
-    path: database
+    path: database/redis
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: database
   syncPolicy:
     automated: { prune: true, selfHeal: true }
     syncOptions: [CreateNamespace=true]

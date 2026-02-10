@@ -24,7 +24,7 @@ spec:
     # 이 애플리케이션이 배포될 Kubernetes 클러스터 주소입니다.
     server: https://kubernetes.default.svc
     # 배포될 네임스페이스를 지정합니다.
-    namespace: default
+    namespace: pond
   syncPolicy:
     automated:
       # prune: true -> Git에서 사라진 내용은 클러스터에서도 자동으로 삭제합니다.

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: secrets
+  name: argocd-ingress
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git'
     targetRevision: HEAD
-    path: secrets
+    path: infrastructure/argocd-ingress
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: argocd  # ArgoCD가 설치된 네임스페이스
   syncPolicy:
     automated:
       prune: true
