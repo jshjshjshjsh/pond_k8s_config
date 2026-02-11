@@ -29,15 +29,15 @@ spec:
         
         webhooksCleanup:
           image:
-            registry: registry.k8s.io
-            repository: kubectl
-            tag: v1.30.0
+            registry: docker.io
+            repository: bitnami/kubectl
+            tag: "1.30"
         
         policyReportsCleanup:
           image:
-            registry: registry.k8s.io
-            repository: kubectl
-            tag: v1.30.0
+            registry: docker.io
+            repository: bitnami/kubectl
+            tag: "1.30"
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
