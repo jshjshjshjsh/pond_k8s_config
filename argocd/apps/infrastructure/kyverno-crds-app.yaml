@@ -6,13 +6,15 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"  # 1등으로 실행!
+    argocd.argoproj.io/sync-wave: "-1"  # 1등으로 실행
 spec:
   project: default
   source:
-    repoURL: https://kyverno.github.io/kyverno/
-    chart: kyverno-crds
-    targetRevision: 3.3.6
+    repoURL: 'https://github.com/kyverno/kyverno'
+    targetRevision: 'v1.13.4'  # Chart 3.3.6과 매핑되는 App Version
+    path: config/crds          # CRD 파일들이 모여있는 폴더
+    directory:
+      recurse: true            # 하위 폴더까지 싹 다 설치
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
@@ -22,5 +24,5 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+      - ServerSideApply=true   # CRD 용량이 커서 필수
       - Replace=true
