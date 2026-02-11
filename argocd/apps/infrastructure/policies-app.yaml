@@ -5,12 +5,14 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
   source:
     repoURL: https://github.com/jshjshjshjsh/pond_k8s_config.git
     targetRevision: HEAD
-    path: policies # 정책 파일들이 있는 폴더
+    path: policies
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
