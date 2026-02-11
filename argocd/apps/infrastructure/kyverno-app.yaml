@@ -26,6 +26,12 @@ spec:
           replicas: 1
         reportsController:
           replicas: 1
+        cleanupJobs:
+                  kubectl:
+                    image:
+                      registry: docker.io
+                      repository: bitnami/kubectl
+                      tag: "1.30.0"
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
