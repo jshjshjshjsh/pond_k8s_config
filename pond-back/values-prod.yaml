@@ -10,5 +10,5 @@ resources:
 
 env:
   SPRING_PROFILES_ACTIVE: "prod"
-  SPRING_DATASOURCE_URL: "jdbc:mysql://pond-mysql:3306/pond?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+  SPRING_DATASOURCE_URL: "jdbc:mysql://pond-mysql.database:3306/pond?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
   SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
