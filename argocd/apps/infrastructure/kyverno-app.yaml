@@ -18,26 +18,13 @@ spec:
       values: |
         installCRDs: false
         
+        webhooksCleanup:
+          enabled: false
+        policyReportsCleanup:
+          enabled: false
+        
         admissionController:
           replicas: 1
-        backgroundController:
-          replicas: 1
-        cleanupController:
-          replicas: 1
-        reportsController:
-          replicas: 1
-        
-        webhooksCleanup:
-          image:
-            registry: docker.io
-            repository: bitnami/kubectl
-            tag: "1.31.4-debian-12-r2"
-        
-        policyReportsCleanup:
-          image:
-            registry: docker.io
-            repository: bitnami/kubectl
-            tag: "1.31.4-debian-12-r2"
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
