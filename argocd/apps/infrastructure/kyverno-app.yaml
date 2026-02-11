@@ -25,6 +25,12 @@ spec:
         
         admissionController:
           replicas: 1
+        backgroundController:
+          replicas: 1
+        cleanupController:
+          replicas: 1
+        reportsController:
+          replicas: 1
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
