@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: "0"   # 2등으로 실행!
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
@@ -14,8 +14,18 @@ spec:
     chart: kyverno
     targetRevision: 3.3.6
     helm:
+      skipCrds: true
       values: |
         installCRDs: false
+        
+        admissionController:
+          replicas: 1
+        backgroundController:
+          replicas: 1
+        cleanupController:
+          replicas: 1
+        reportsController:
+          replicas: 1
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
