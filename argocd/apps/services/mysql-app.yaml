@@ -15,11 +15,13 @@ spec:
       values: |
         architecture: standalone
         
+        image:
+          tag: "8.0.40"
+        
         auth:
           existingSecret: "mysql-credentials"
-      
           database: "pond"
-          username: "pond_user" # (만약 root 외에 별도로 만든 유저가 있다면 주석을 풀고 적어주세요)
+          username: "pond_user" 
 
         primary:
           persistence:
