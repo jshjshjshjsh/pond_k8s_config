@@ -14,9 +14,16 @@ spec:
     helm:
       values: |
         mode: deployment
+        
+        image:
+          repository: "otel/opentelemetry-collector-k8s"
 
         config:
           receivers:
+            jaeger: null
+            prometheus: null
+            zipkin: null
+        
             otlp:
               protocols:
                 grpc:
@@ -37,6 +44,9 @@ spec:
 
           service:
             pipelines:
+              metrics: null
+              logs: null
+        
               traces:
                 receivers: [otlp]
                 processors: [batch]
