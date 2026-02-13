@@ -3,15 +3,15 @@ kind: Application
 metadata:
   name: mysql
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     repoURL: 'https://charts.bitnami.com/bitnami'
     chart: mysql
-    targetRevision: 10.1.0
     helm:
       values: |
-        # 1. Secret 사용
         image:
           registry: docker.io
           repository: bitnamilegacy/mysql
@@ -28,12 +28,10 @@ spec:
           userKey: "mysql-user"
           passwordKey: "mysql-password"
 
-        # 2. 데이터 영속성 설정 (PVC 생성)
         primary:
           persistence:
             enabled: true
             size: 8Gi
-          # 서비스 타입을 ClusterIP로 설정 (내부 통신용)
           service:
             type: ClusterIP
   destination:
