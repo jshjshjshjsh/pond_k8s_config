@@ -10,15 +10,16 @@ spec:
   source:
     repoURL: 'https://charts.bitnami.com/bitnami'
     chart: mysql
-    targetRevision: 14.0.3-
+    targetRevision: 14.0.3
     helm:
       values: |
+        architecture: standalone
+        
         auth:
           existingSecret: "mysql-credentials"
-          rootPasswordKey: "mysql-root-password"
-          databaseKey: "mysql-database"
-          userKey: "mysql-user"
-          passwordKey: "mysql-password"
+      
+          database: "pond"
+          username: "pond_user" # (만약 root 외에 별도로 만든 유저가 있다면 주석을 풀고 적어주세요)
 
         primary:
           persistence:
