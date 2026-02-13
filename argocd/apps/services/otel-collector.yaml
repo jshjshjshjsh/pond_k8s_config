@@ -36,7 +36,7 @@ spec:
         
           exporters:
             otlp/jaeger:
-              endpoint: "jaeger-all-in-one-collector.monitoring.svc.cluster.local:4317"
+              endpoint: "jaeger-collector.monitoring.svc.cluster.local:4317"
               tls:
                 insecure: true
             debug:
