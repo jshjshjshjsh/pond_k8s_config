@@ -6,12 +6,26 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git'
-    targetRevision: HEAD
-    path: database/redis
+    repoURL: 'https://charts.bitnami.com/bitnami'
+    chart: redis
+    targetRevision: 18.0.0
+    helm:
+      values: |
+        architecture: standalone
+        
+        auth:
+          enabled: false
+
+        master:
+          persistence:
+            enabled: true
+            size: 2Gi
   destination:
     server: https://kubernetes.default.svc
     namespace: database
   syncPolicy:
-    automated: { prune: true, selfHeal: true }
-    syncOptions: [CreateNamespace=true]
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

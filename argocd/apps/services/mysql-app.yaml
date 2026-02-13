@@ -6,12 +6,29 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git'
-    targetRevision: HEAD
-    path: database/mysql
+    repoURL: 'https://charts.bitnami.com/bitnami'
+    chart: mysql
+    targetRevision: 10.1.0
+    helm:
+      values: |
+        # 1. Secret 사용
+        auth:
+          existingSecret: "mysql-credentials"
+
+        # 2. 데이터 영속성 설정 (PVC 생성)
+        primary:
+          persistence:
+            enabled: true
+            size: 8Gi
+          # 서비스 타입을 ClusterIP로 설정 (내부 통신용)
+          service:
+            type: ClusterIP
   destination:
     server: https://kubernetes.default.svc
     namespace: database
   syncPolicy:
-    automated: { prune: true, selfHeal: true }
-    syncOptions: [CreateNamespace=true]
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
