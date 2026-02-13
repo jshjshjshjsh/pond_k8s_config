@@ -107,6 +107,19 @@ spec:
             - name: SPRING_FLYWAY_BASELINE_ON_MIGRATE
               value: {{ .Values.env.SPRING_FLYWAY_BASELINE_ON_MIGRATE | quote }}
 
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
