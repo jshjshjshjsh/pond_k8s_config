@@ -16,7 +16,7 @@ spec:
         architecture: standalone
         
         image:
-          tag: "8.0.40"
+          tag: "8.0.40-debian-12-r5"
         
         auth:
           existingSecret: "mysql-credentials"
