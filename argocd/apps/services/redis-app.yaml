@@ -11,6 +11,15 @@ spec:
     targetRevision: 18.0.0
     helm:
       values: |
+        image:
+          registry: docker.io
+          repository: bitnamilegacy/redis
+        
+        volumePermissions:
+          image:
+            registry: docker.io
+            repository: bitnamilegacy/os-shell
+        
         architecture: standalone
         
         auth:
