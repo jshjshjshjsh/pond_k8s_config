@@ -8,29 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://charts.bitnami.com/bitnami'
-    chart: mysql
-    targetRevision: 14.0.3
-    helm:
-      values: |
-        architecture: standalone
-        
-        image:
-          registry: docker.io
-          repository: bitnamilegacy/mysql
-          tag: "8.4"
-        
-        auth:
-          existingSecret: "mysql-credentials"
-          database: "pond"
-          username: "pond_user" 
-
-        primary:
-          persistence:
-            enabled: true
-            size: 8Gi
-          service:
-            type: ClusterIP
+    repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git'
+    targetRevision: HEAD
+    path: database/mysql
   destination:
     server: https://kubernetes.default.svc
     namespace: database
