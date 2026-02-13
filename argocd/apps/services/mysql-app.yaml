@@ -14,6 +14,10 @@ spec:
         # 1. Secret 사용
         auth:
           existingSecret: "mysql-credentials"
+          rootPasswordKey: "mysql-root-password"
+          databaseKey: "mysql-database"
+          userKey: "mysql-user"
+          passwordKey: "mysql-password"
 
         # 2. 데이터 영속성 설정 (PVC 생성)
         primary:

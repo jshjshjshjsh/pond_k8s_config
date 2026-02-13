@@ -36,7 +36,7 @@ spec:
       - name: check-db
         image: busybox:1.36
         # 'mysql' 서비스의 3306 포트가 열릴 때까지 10초마다 확인합니다.
-        command: ['sh', '-c', 'until nc -vz mysql.database 3306; do echo "Waiting for db"; sleep 10; done']
+        command: ['sh', '-c', 'until nc -vz mysql-primary.database 3306; do echo "Waiting for db"; sleep 10; done']
       - name: check-redis
         image: busybox:1.36
         # 'redis-master' 서비스의 6379 포트가 열릴 때까지 10초마다 확인합니다.
