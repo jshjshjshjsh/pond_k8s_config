@@ -13,8 +13,14 @@ spec:
     targetRevision: 3.3.3
     helm:
       values: |
+        # 1. 무거운 기본 DB(카산드라) 생성 끄기
         provisionDataStore:
           cassandra: false
+        
+        storage:
+          type: memory
+        
+        # 2. 가벼운 All-in-One(개발용) 모드 켜기
         allInOne:
           enabled: true
           ingress:
@@ -25,6 +31,7 @@ spec:
             path: /
             pathType: Prefix
         
+        # 3. 개별 컴포넌트들 끄기 (All-in-One이 다 처리하므로 필요 없음)
         agent:
           enabled: false
         collector:
