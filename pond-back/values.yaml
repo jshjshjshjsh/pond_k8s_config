@@ -116,7 +116,7 @@ env:
   # 1. DB & Redis & JPA 설정
   SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-primary.database:3306/pond?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
   SPRING_DATA_REDIS_HOST: "redis-master.database"
-  SPRING_JPA_HIBERNATE_DDL_AUTO: "create"
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
   # 2. 로깅 레벨 설정
   LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: "DEBUG"
   LOGGING_LEVEL_IO_OPENTELEMETRY: "DEBUG"
