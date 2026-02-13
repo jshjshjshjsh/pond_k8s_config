@@ -10,17 +10,9 @@ spec:
   source:
     repoURL: 'https://charts.bitnami.com/bitnami'
     chart: mysql
+    targetRevision: 14.0.3-
     helm:
       values: |
-        image:
-          registry: docker.io
-          repository: bitnamilegacy/mysql
-        
-        volumePermissions:
-          image:
-            registry: docker.io
-            repository: bitnamilegacy/os-shell
-        
         auth:
           existingSecret: "mysql-credentials"
           rootPasswordKey: "mysql-root-password"
