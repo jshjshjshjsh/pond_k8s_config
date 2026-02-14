@@ -53,10 +53,7 @@ spec:
           service:
             extensions: [health_check]
         
-            pipelines:
-              metrics: null
-              logs: null
-        
+            pipelines:        
               traces:
                 receivers: [otlp]
                 processors: [batch]
