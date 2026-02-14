@@ -17,6 +17,13 @@ spec:
         
         image:
           repository: "otel/opentelemetry-collector-contrib"
+        
+        ports:
+          prometheus:
+            enabled: true
+            containerPort: 8889
+            servicePort: 8889
+            protocol: TCP
 
         serviceMonitor:
           enabled: true
