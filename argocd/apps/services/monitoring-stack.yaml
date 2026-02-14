@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring-stack
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    # 🌟 프로메테우스 커뮤니티 공식 저장소
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: 61.3.2  # 검증된 안정 버전
+    helm:
+      values: |
+        # 1. Grafana 설정
+        grafana:
+          # 로그인 비밀번호 고정
+          admin:
+            existingSecret: "grafana-admin-credentials"
+            userKey: "admin-user"
+            passwordKey: "admin-password"
+        
+          # Ingress 연결 (grafana.local로 접속)
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - grafana.local
+            path: /
+            pathType: Prefix
+
+        # 2. Prometheus 설정
+        prometheus:
+          prometheusSpec:
+            # OTel Collector를 발견해서 긁어갈 수 있도록 설정
+            serviceMonitorSelectorNilUsesHelmValues: false
+            serviceMonitorSelector: {}
+            serviceMonitorNamespaceSelector: {}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true # CRD 용량이 커서 필수 설정
