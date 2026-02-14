@@ -27,7 +27,7 @@ spec:
             enabled: true
             ingressClassName: nginx
             hosts:
-              - grafana.local
+              - grafana.127.0.0.1.nip.io
             path: /
             pathType: Prefix
 
