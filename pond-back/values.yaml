@@ -132,3 +132,4 @@ env:
   # 5. Prometheus 설정
   MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: "true"
   MANAGEMENT_OTLP_METRICS_EXPORT_STEP: "5s"
+  MANAGEMENT_OTLP_METRICS_EXPORT_URL: "http://otel-collector-opentelemetry-collector.monitoring:4318/v1/metrics"
