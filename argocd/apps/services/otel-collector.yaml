@@ -17,13 +17,16 @@ spec:
         image:
           repository: "otel/opentelemetry-collector-k8s"
 
-        # Prometheus가 OTel을 긁어갈 수 있도록 연결 고리(ServiceMonitor) 생성
         serviceMonitor:
           enabled: true
           extraLabels:
-            release: monitoring-stack # Prometheus가 감지할 수 있는 라벨
+            release: monitoring-stack
 
         config:
+          extensions:
+            health_check:
+              endpoint: "0.0.0.0:13133"
+
           receivers:
             otlp:
               protocols:
@@ -36,13 +39,11 @@ spec:
             batch: {}
         
           exporters:
-            # 1. Tracing은 Jaeger로 보냄
             otlp/jaeger:
               endpoint: "jaeger-collector.monitoring.svc.cluster.local:4317"
               tls:
                 insecure: true
         
-            # 2. Metrics는 Prometheus가 긁어갈 수 있게 포트를 열어둠
             prometheus:
               endpoint: "0.0.0.0:8889"
         
@@ -50,11 +51,12 @@ spec:
               verbosity: detailed
 
           service:
+            extensions: [health_check]
+        
             pipelines:
-              metrics: null # 기본값 끄고 아래에서 재정의
+              metrics: null
               logs: null
         
-              # Tracing 파이프라인
               traces:
                 receivers: [otlp]
                 processors: [batch]
