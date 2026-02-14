@@ -14,8 +14,9 @@ spec:
     helm:
       values: |
         mode: deployment
+        
         image:
-          repository: "otel/opentelemetry-collector-k8s"
+          repository: "otel/opentelemetry-collector-contrib"
 
         serviceMonitor:
           enabled: true
@@ -53,7 +54,7 @@ spec:
           service:
             extensions: [health_check]
         
-            pipelines:        
+            pipelines:
               traces:
                 receivers: [otlp]
                 processors: [batch]
