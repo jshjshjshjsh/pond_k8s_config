@@ -29,6 +29,10 @@ spec:
           enabled: true
           extraLabels:
             release: monitoring-stack
+          metricsEndpoints:
+            - port: prometheus
+              path: /metrics
+              interval: 5s
 
         config:
           extensions:
