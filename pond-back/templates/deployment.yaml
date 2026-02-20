@@ -80,6 +80,10 @@ spec:
               value: {{ .Values.env.MANAGEMENT_OTLP_METRICS_EXPORT_STEP | quote }}
             - name: MANAGEMENT_OTLP_METRICS_EXPORT_URL
               value: {{ .Values.env.MANAGEMENT_OTLP_METRICS_EXPORT_URL | quote }}
+            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+              value: {{ .Values.env.MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE | quote }}
+            - name: MANAGEMENT_METRICS_TAGS_APPLICATION
+              value: {{ .Values.env.MANAGEMENT_METRICS_TAGS_APPLICATION | quote }}
 
             # values.yaml의 env 밑에 있는 모든 값을 자동으로 환경변수로 만듭니다.
             # 아래와 같이 루프문으로도 처리 가능!
