@@ -8,7 +8,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/jshjshjshjsh/pond_back # GHCR 이미지 주소
   pullPolicy: Always
-  tag: "bc32a44"
+  tag: "6dcb183"
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets:
   - name: ghcr-secret
@@ -133,7 +133,6 @@ env:
   MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: "true"
   MANAGEMENT_OTLP_METRICS_EXPORT_STEP: "5s"
   MANAGEMENT_OTLP_METRICS_EXPORT_URL: "http://otel-collector-opentelemetry-collector.monitoring:4318/v1/metrics"
-
   #  Actuator 프로메테우스 엔드포인트 개방 및 태그 설정
   MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "prometheus,health,info,metrics"
   MANAGEMENT_METRICS_TAGS_APPLICATION: "pond-back"
