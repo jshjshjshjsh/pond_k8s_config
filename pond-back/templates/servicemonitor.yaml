@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "pond-back.fullname" . }}
+  labels:
+    {{- include "pond-back.labels" . | nindent 4 }}
+    # 프로메테우스 오퍼레이터가 이 파일을 감지할 수 있도록 해주는 핵심 라벨
+    release: kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      {{- include "pond-back.selectorLabels" . | nindent 6 }}
+  endpoints:
+    - port: http
+      path: /actuator/prometheus
+      interval: 10s # 10초마다 긁어갑니다.

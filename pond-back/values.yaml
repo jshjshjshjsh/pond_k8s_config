@@ -133,3 +133,7 @@ env:
   MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: "true"
   MANAGEMENT_OTLP_METRICS_EXPORT_STEP: "5s"
   MANAGEMENT_OTLP_METRICS_EXPORT_URL: "http://otel-collector-opentelemetry-collector.monitoring:4318/v1/metrics"
+
+  #  Actuator 프로메테우스 엔드포인트 개방 및 태그 설정
+  MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "prometheus,health,info,metrics"
+  MANAGEMENT_METRICS_TAGS_APPLICATION: "pond-back"
