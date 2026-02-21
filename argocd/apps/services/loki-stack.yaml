@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki-stack
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    # Grafana 공식 헬름 차트 저장소
+    repoURL: https://grafana.github.io/helm-charts
+    chart: loki-stack
+    targetRevision: 2.10.2 # 안정 버전
+    helm:
+      values: |
+        # 1. Loki 설정 (로그 엔진)
+        loki:
+          enabled: true
+          # Loki를 운영 서버인 ops-node에 배치
+          nodeSelector:
+            role: ops-node
+          persistence:
+            enabled: true
+            size: 10Gi # 로그 저장 용량
+
+        # 2. Promtail 설정 (로그 수집기)
+        promtail:
+          enabled: true
+          # Promtail은 모든 노드의 로그를 긁어야 하므로 nodeSelector를 걸지 않습니다.
+          # 자동으로 DaemonSet으로 배포되어 모든 노드에 하나씩 뜹니다.
+
+        # 3. Grafana 연동은 기존에 설치한 Grafana를 사용할 것이므로 여기서 false로 둡니다.
+        grafana:
+          enabled: false
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring # 기존 모니터링 네임스페이스에 같이 넣습니다.
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
