@@ -74,7 +74,12 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
+            cpu: 200m
+            memory: 512Mi
             storage: 20Gi
+          limits:
+            cpu: "1.0"
+            memory: 2Gi
 ---
 apiVersion: v1
 kind: Service
