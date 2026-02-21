@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
-replicaCount: 1
+replicaCount: 3
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
   repository: ghcr.io/jshjshjshjsh/pond_front
@@ -111,4 +111,14 @@ volumeMounts: []
 
 nodeSelector: {}
 tolerations: []
-affinity: {}
+affinity:
+  podAntiAffinity:
+    # "웬만하면" 다른 노드에 배치하라는 설정
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+                - pond-front # 차트의 이름(헬퍼 함수 기준)과 일치해야 합니다.
+        topologyKey: "kubernetes.io/hostname"
