@@ -22,6 +22,8 @@ spec:
           persistence:
             enabled: true
             size: 2Gi
+          nodeSelector:
+            role: data-node
   destination:
     server: https://kubernetes.default.svc
     namespace: database
@@ -31,6 +33,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-  primary:
-    nodeSelector:
-      role: data-node
