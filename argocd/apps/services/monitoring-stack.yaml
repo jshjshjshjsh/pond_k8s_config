@@ -30,6 +30,9 @@ spec:
               - grafana.127.0.0.1.nip.io
             path: /
             pathType: Prefix
+        
+          nodeSelector:
+            role: ops-node
 
         # 2. Prometheus 설정
         prometheus:
@@ -38,6 +41,24 @@ spec:
             serviceMonitorSelectorNilUsesHelmValues: false
             serviceMonitorSelector: {}
             serviceMonitorNamespaceSelector: {}
+            nodeSelector:
+              role: ops-node
+        
+        # Prometheus Operator 설정
+        prometheusOperator:
+          nodeSelector:
+            role: ops-node
+
+        # Alertmanager 설정
+        alertmanager:
+          alertmanagerSpec:
+            nodeSelector:
+              role: ops-node
+
+        # 기타 컴포넌트 (Kube-state-metrics 등)
+        kube-state-metrics:
+          nodeSelector:
+            role: ops-node
 
   destination:
     server: https://kubernetes.default.svc
