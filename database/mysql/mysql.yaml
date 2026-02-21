@@ -49,11 +49,11 @@ spec:
 
           resources:
             requests:
-              cpu: 100m
-              memory: 256Mi
-            limits:
-              cpu: 500m
+              cpu: 200m
               memory: 512Mi
+            limits:
+              cpu: "1.0"
+              memory: 2Gi
 
           livenessProbe:
             exec:
@@ -74,12 +74,7 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
-            cpu: 200m
-            memory: 512Mi
             storage: 20Gi
-          limits:
-            cpu: "1.0"
-            memory: 2Gi
 ---
 apiVersion: v1
 kind: Service
