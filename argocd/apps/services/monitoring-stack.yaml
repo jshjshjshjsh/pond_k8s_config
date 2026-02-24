@@ -22,12 +22,13 @@ spec:
             userKey: "admin-user"
             passwordKey: "admin-password"
         
-          # Ingress 연결 (grafana.local로 접속)
+          # Ingress 연결
           ingress:
             enabled: true
             ingressClassName: nginx
             hosts:
-              - grafana.127.0.0.1.nip.io
+              - grafana.theponds.work
+              #- grafana.127.0.0.1.nip.io
             path: /
             pathType: Prefix
         
