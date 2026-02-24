@@ -137,7 +137,7 @@ env:
   MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "1.0"
   MANAGEMENT_OTLP_TRACING_ENDPOINT: "http://otel-collector-opentelemetry-collector.monitoring:4318/v1/traces"
   # 4. Flyway 적용
-  SPRING_FLYWAY_ENABLED: "true"
+  SPRING_FLYWAY_ENABLED: "false"
   SPRING_FLYWAY_BASELINE_ON_MIGRATE: "true"
   # 5. Prometheus 설정
   MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: "true"
