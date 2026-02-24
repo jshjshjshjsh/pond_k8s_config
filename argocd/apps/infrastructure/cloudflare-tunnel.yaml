@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflare-tunnel
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/jshjshjshjsh/pond_k8s_config.git' # 형님의 저장소
+    targetRevision: HEAD
+    path: infrastructure/cloudflare # 설정 파일 경로
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cloudflare # 전용 네임스페이스 권장
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
