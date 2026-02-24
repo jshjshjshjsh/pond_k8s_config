@@ -27,7 +27,8 @@ spec:
             enabled: true
             ingressClassName: nginx
             hosts:
-              - jaeger.127.0.0.1.nip.io
+              - jaeger.theponds.work
+              #- jaeger.127.0.0.1.nip.io
             path: /
             pathType: Prefix
         
