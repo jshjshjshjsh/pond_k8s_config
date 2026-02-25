@@ -8,7 +8,7 @@ spec:
   # 1. 3중화 설정 (High Availability)
   # 노트북 자원이 부족하면 size를 3에서 1로 줄여서 테스트해도 되지만, 공부를 위해 3을 추천합니다!
   pxc:
-    size: 3
+    size: 0
     image: percona/percona-xtradb-cluster:8.0.35-27.1
     nodeSelector:
       pond-db-eligible: "true"
@@ -47,7 +47,7 @@ spec:
   # 3. 프록시 설정 (앱이 DB 주소를 하나만 바라보게 해줌)
   haproxy:
     enabled: true
-    size: 2
+    size: 0
     image: percona/haproxy:2.8.17
     resources:
       requests:
