@@ -9,7 +9,6 @@ spec:
   # 노트북 자원이 부족하면 size를 3에서 1로 줄여서 테스트해도 되지만, 공부를 위해 3을 추천합니다!
   pxc:
     size: 3
-    antiAffinityTopologyKey: "none"
     image: percona/percona-xtradb-cluster:8.0.35-27.1
     nodeSelector:
       pond-db-eligible: "true"
@@ -28,17 +27,19 @@ spec:
             storage: 10Gi
     # 안티 어피니티 (DB들끼리 서로 다른 노드에 찢어놓기)
     affinity:
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/component
-                    operator: In
-                    values:
-                      - pond-db
-              topologyKey: "kubernetes.io/hostname"
+      antiAffinityTopologyKey: "none"
+      advanced:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/component
+                      operator: In
+                      values:
+                        - pond-db
+                topologyKey: "kubernetes.io/hostname"
 
   # 2. 사용자 계정 연동
   secretsName: mysql-credentials
