@@ -9,6 +9,7 @@ spec:
   # 노트북 자원이 부족하면 size를 3에서 1로 줄여서 테스트해도 되지만, 공부를 위해 3을 추천합니다!
   pxc:
     size: 3
+    antiAffinityTopologyKey: "none"
     image: percona/percona-xtradb-cluster:8.0.35-27.1
     nodeSelector:
       pond-db-eligible: "true"
