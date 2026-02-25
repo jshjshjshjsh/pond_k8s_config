@@ -28,14 +28,16 @@ spec:
     # 안티 어피니티 (DB들끼리 서로 다른 노드에 찢어놓기)
     affinity:
       podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/component
-                  operator: In
-                  values:
-                    - pxc
-            topologyKey: "kubernetes.io/hostname"
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/component
+                    operator: In
+                    values:
+                      - pxc
+              topologyKey: "kubernetes.io/hostname"
 
   # 2. 사용자 계정 연동
   secretsName: mysql-credentials
