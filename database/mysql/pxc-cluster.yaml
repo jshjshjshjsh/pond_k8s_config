@@ -27,8 +27,17 @@ spec:
             storage: 10Gi
     # 안티 어피니티 (DB들끼리 서로 다른 노드에 찢어놓기)
     affinity:
-      type: soft
-      antiAffinityTopologyKey: "kubernetes.io/hostname"
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/component
+                    operator: In
+                    values:
+                      - pond-db
+              topologyKey: "kubernetes.io/hostname"
 
   # 2. 사용자 계정 연동
   secretsName: mysql-credentials
