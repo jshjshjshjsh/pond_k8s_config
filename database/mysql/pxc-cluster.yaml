@@ -11,7 +11,7 @@ spec:
     size: 3
     image: percona/percona-xtradb-cluster:8.0.35-27.1
     nodeSelector:
-      role: data-node
+      pond-db-eligible: "true"
     resources:
       requests:
         memory: 512Mi
