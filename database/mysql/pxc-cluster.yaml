@@ -27,6 +27,8 @@ spec:
             storage: 10Gi
     # 안티 어피니티 (DB들끼리 서로 다른 노드에 찢어놓기)
     affinity:
+      type: soft
+      antiAffinityTopologyKey: "kubernetes.io/hostname"
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
