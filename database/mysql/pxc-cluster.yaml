@@ -46,7 +46,6 @@ spec:
   haproxy:
     enabled: true
     size: 2
-    image: percona/percona-xtradb-cluster-operator:1.15.0-haproxy
     resources:
       requests:
         cpu: 100m
