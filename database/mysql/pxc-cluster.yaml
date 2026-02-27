@@ -42,7 +42,7 @@ spec:
                 topologyKey: "kubernetes.io/hostname"
 
   # 2. 사용자 계정 연동
-  #secretsName: mysql-credentials
+  secretsName: mysql-pxc-credentials
 
   # 3. 프록시 설정 (앱이 DB 주소를 하나만 바라보게 해줌)
   haproxy:
