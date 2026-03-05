@@ -56,7 +56,7 @@ spec:
         memory: 128Mi
 
   backup:
-    # image: percona/percona-xtradb-cluster-operator:1.15.0-pxc8.0-backup
+    image: percona/percona-xtradb-cluster-operator:1.14.0-pxc8.0-backup
     # R2 저장소 설정
     storages:
       r2-storage:
