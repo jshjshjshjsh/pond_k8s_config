@@ -54,3 +54,24 @@ spec:
       requests:
         cpu: 100m
         memory: 128Mi
+
+  backup:
+    image: percona/percona-xtradb-cluster-operator:1.15.0-pxc8.0-backup
+    # R2 저장소 설정
+    storages:
+      r2-storage:
+        type: s3
+        s3:
+          bucket: pond-db-backup  # R2 버킷 이름
+          credentialsSecret: pxc-cluster-backup-secret
+          region: auto
+          endpointUrl: https://d9d59b80a6fa28a1a2461682d11cfa2a.r2.cloudflarestorage.com
+
+    # 자동 백업 스케줄 설정
+    schedule:
+      - name: "daily-backup"
+        # 매일 새벽 3시(한국 시간)에 백업 실행 (Cron 표현식)
+        # 쿠버네티스는 기본 UTC 기준이므로, 한국 새벽 3시면 UTC 오후 6시(18:00) 입니다.
+        schedule: "0 18 * * *"
+        keep: 5  # 최근 5개의 백업 파일만 유지하고 오래된 것은 자동 삭제 (비용 절감)
+        storageName: r2-storage
