@@ -17,6 +17,7 @@ spec:
         # 1. Loki 설정 (로그 엔진)
         loki:
           enabled: true
+          isDefault: false
           # Loki를 운영 서버인 ops-node에 배치
           nodeSelector:
             role: ops-node
