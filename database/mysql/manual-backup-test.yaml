@@ -1,8 +1,0 @@
-apiVersion: pxc.percona.com/v1
-kind: PerconaXtraDBClusterBackup
-metadata:
-  name: manual-backup-test-06
-  namespace: database
-spec:
-  pxcCluster: pond-db
-  storageName: r2-storage
