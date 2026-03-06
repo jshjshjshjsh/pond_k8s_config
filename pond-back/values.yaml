@@ -146,3 +146,4 @@ env:
   #  Actuator 프로메테우스 엔드포인트 개방 및 태그 설정
   MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "prometheus,health,info,metrics"
   MANAGEMENT_METRICS_TAGS_APPLICATION: "pond-back"
+  TEST_CANARY_VERSION: "v2"
