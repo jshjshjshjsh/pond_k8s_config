@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Rollout
 metadata:
   name: {{ include "pond-back.fullname" . }}
   labels:
@@ -11,6 +11,20 @@ spec:
   selector:
     matchLabels:
       {{- include "pond-back.selectorLabels" . | nindent 6 }}
+
+  # argocd rollout 설정
+  strategy:
+    canary:
+      steps:
+        # 1단계: 새 버전을 20%만 배포하고 멈춰서 기다림(pause)
+        - setWeight: 20
+        - pause: { }  # 무기한 대기 (형님이 수동으로 OK 해야 넘어감)
+
+        # 2단계: 수동 승인 후 50%로 올리고 10초 대기
+        - setWeight: 50
+        - pause: { duration: 10s }
+        # 3단계: 10초 후 알아서 100%로 전체 교체!
+
   template:
     metadata:
       {{- with .Values.podAnnotations }}
