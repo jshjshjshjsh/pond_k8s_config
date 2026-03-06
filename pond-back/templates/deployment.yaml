@@ -139,6 +139,8 @@ spec:
             - name: SPRING_FLYWAY_BASELINE_ON_MIGRATE
               value: {{ .Values.env.SPRING_FLYWAY_BASELINE_ON_MIGRATE | quote }}
 
+            - name: TEST_CANARY_VERSION
+              value: {{ .Values.env.TEST_CANARY_VERSION | quote }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
