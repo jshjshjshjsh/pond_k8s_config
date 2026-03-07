@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    # HashiCorp 공식 헬름 차트 저장소
+    repoURL: https://helm.releases.hashicorp.com
+    chart: vault
+    targetRevision: 0.28.0
+    helm:
+      values: |
+        server:
+          # 개발(Dev) 모드 활성화: 초기 잠금 해제 과정을 생략해 줍니다.
+          dev:
+            enabled: true
+            devRootToken: "root" # 초기 로그인 비밀번호를 'root'로 고정
+        ui:
+          enabled: true # 멋진 웹 대시보드 활성화
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault # 별도 네임스페이스 격리
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
