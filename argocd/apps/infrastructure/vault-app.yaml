@@ -19,8 +19,17 @@ spec:
           dev:
             enabled: true
             devRootToken: "root" # 초기 로그인 비밀번호를 'root'로 고정
+          
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            hosts:
+              - vault.theponds.work
+            path: /
+            pathType: Prefix
+        
         ui:
-          enabled: true # 멋진 웹 대시보드 활성화
+          enabled: true # 웹 대시보드 활성화
   destination:
     server: https://kubernetes.default.svc
     namespace: vault # 별도 네임스페이스 격리
