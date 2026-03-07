@@ -24,9 +24,8 @@ spec:
             enabled: true
             ingressClassName: nginx
             hosts:
-              - vault.theponds.work
-            path: /
-            pathType: Prefix
+              - host: vault.theponds.work  # 'host:' 키워드 필수!
+                paths: []
         
         ui:
           enabled: true # 웹 대시보드 활성화
