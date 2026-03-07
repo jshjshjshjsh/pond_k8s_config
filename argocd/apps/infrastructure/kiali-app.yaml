@@ -22,6 +22,12 @@ spec:
           port: 20001
           web_root: /
         
+        ingress:
+          enabled: true
+          class_name: "nginx"
+          hosts:
+            - kiali.theponds.work
+        
         # 기존에 설치된 Prometheus와 연동하여 메트릭을 가져옴
         external_services:
           prometheus:
