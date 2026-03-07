@@ -15,10 +15,14 @@ spec:
     helm:
       values: |
         server:
-          # 개발(Dev) 모드 활성화: 초기 잠금 해제 과정을 생략해 줍니다.
+          # 개발(Dev) 모드 비활성화: 초기 잠금 해제 과정을 생략해 줍니다.
           dev:
+            enabled: false
+        
+          # PVC 연결
+          dataStorage:
             enabled: true
-            devRootToken: "root" # 초기 로그인 비밀번호를 'root'로 고정
+            size: 5Gi
           
           ingress:
             enabled: true
