@@ -16,7 +16,7 @@ spec:
         # ESO 전용 CRD 사전들을 자동으로 설치합니다.
         installCRDs: true
   destination:
-    server: [https://kubernetes.default.svc](https://kubernetes.default.svc)
+    server: https://kubernetes.default.svc
     namespace: external-secrets
   syncPolicy:
     automated:
