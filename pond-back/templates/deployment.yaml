@@ -72,41 +72,41 @@ spec:
               protocol: TCP
           env:
             # 1. values.yaml에서 정의한 일반 설정들을 주입합니다.
-            - name: SPRING_PROFILES_ACTIVE
-              value: {{ .Values.env.SPRING_PROFILES_ACTIVE | quote }}
-            - name: SPRING_DATASOURCE_URL
-              value: {{ .Values.env.SPRING_DATASOURCE_URL | quote }}
-            - name: SPRING_DATA_REDIS_HOST
-              value: {{ .Values.env.SPRING_DATA_REDIS_HOST | quote }}
-            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-              value: {{ .Values.env.SPRING_JPA_HIBERNATE_DDL_AUTO | quote }}
-            - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY
-              value: {{ .Values.env.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY | quote }}
-            - name: OTEL_SERVICE_NAME
-              value: {{ .Values.env.OTEL_SERVICE_NAME | quote }}
-            - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: {{ .Values.env.OTEL_EXPORTER_OTLP_ENDPOINT | quote }}
-            - name: MANAGEMENT_TRACING_SAMPLING_PROBABILITY
-              value: {{ .Values.env.MANAGEMENT_TRACING_SAMPLING_PROBABILITY | quote }}
-            - name: MANAGEMENT_OTLP_TRACING_ENDPOINT
-              value: {{ .Values.env.MANAGEMENT_OTLP_TRACING_ENDPOINT | quote }}
-            - name: MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED
-              value: {{ .Values.env.MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED | quote }}
-            - name: MANAGEMENT_OTLP_METRICS_EXPORT_STEP
-              value: {{ .Values.env.MANAGEMENT_OTLP_METRICS_EXPORT_STEP | quote }}
-            - name: MANAGEMENT_OTLP_METRICS_EXPORT_URL
-              value: {{ .Values.env.MANAGEMENT_OTLP_METRICS_EXPORT_URL | quote }}
-            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
-              value: {{ .Values.env.MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE | quote }}
-            - name: MANAGEMENT_METRICS_TAGS_APPLICATION
-              value: {{ .Values.env.MANAGEMENT_METRICS_TAGS_APPLICATION | quote }}
+{{/*            - name: SPRING_PROFILES_ACTIVE*/}}
+{{/*              value: {{ .Values.env.SPRING_PROFILES_ACTIVE | quote }}*/}}
+{{/*            - name: SPRING_DATASOURCE_URL*/}}
+{{/*              value: {{ .Values.env.SPRING_DATASOURCE_URL | quote }}*/}}
+{{/*            - name: SPRING_DATA_REDIS_HOST*/}}
+{{/*              value: {{ .Values.env.SPRING_DATA_REDIS_HOST | quote }}*/}}
+{{/*            - name: SPRING_JPA_HIBERNATE_DDL_AUTO*/}}
+{{/*              value: {{ .Values.env.SPRING_JPA_HIBERNATE_DDL_AUTO | quote }}*/}}
+{{/*            - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY*/}}
+{{/*              value: {{ .Values.env.LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY | quote }}*/}}
+{{/*            - name: OTEL_SERVICE_NAME*/}}
+{{/*              value: {{ .Values.env.OTEL_SERVICE_NAME | quote }}*/}}
+{{/*            - name: OTEL_EXPORTER_OTLP_ENDPOINT*/}}
+{{/*              value: {{ .Values.env.OTEL_EXPORTER_OTLP_ENDPOINT | quote }}*/}}
+{{/*            - name: MANAGEMENT_TRACING_SAMPLING_PROBABILITY*/}}
+{{/*              value: {{ .Values.env.MANAGEMENT_TRACING_SAMPLING_PROBABILITY | quote }}*/}}
+{{/*            - name: MANAGEMENT_OTLP_TRACING_ENDPOINT*/}}
+{{/*              value: {{ .Values.env.MANAGEMENT_OTLP_TRACING_ENDPOINT | quote }}*/}}
+{{/*            - name: MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED*/}}
+{{/*              value: {{ .Values.env.MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED | quote }}*/}}
+{{/*            - name: MANAGEMENT_OTLP_METRICS_EXPORT_STEP*/}}
+{{/*              value: {{ .Values.env.MANAGEMENT_OTLP_METRICS_EXPORT_STEP | quote }}*/}}
+{{/*            - name: MANAGEMENT_OTLP_METRICS_EXPORT_URL*/}}
+{{/*              value: {{ .Values.env.MANAGEMENT_OTLP_METRICS_EXPORT_URL | quote }}*/}}
+{{/*            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE*/}}
+{{/*              value: {{ .Values.env.MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE | quote }}*/}}
+{{/*            - name: MANAGEMENT_METRICS_TAGS_APPLICATION*/}}
+{{/*              value: {{ .Values.env.MANAGEMENT_METRICS_TAGS_APPLICATION | quote }}*/}}
 
             # values.yaml의 env 밑에 있는 모든 값을 자동으로 환경변수로 만듭니다.
             # 아래와 같이 루프문으로도 처리 가능!
-            # {{- range $key, $val := .Values.env }}
-            # - name: {{ $key }}
-            #   value: {{ $val | quote }}
-            # {{- end }}
+             {{- range $key, $val := .Values.env }}
+             - name: {{ $key }}
+               value: {{ $val | quote }}
+             {{- end }}
 
             # 2. MySQL 접속 정보를 'mysql-credentials' Secret에서 가져옵니다.
             - name: SPRING_DATASOURCE_USERNAME
