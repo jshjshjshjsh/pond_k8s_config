@@ -74,10 +74,10 @@ spec:
 
             # values.yaml의 env 밑에 있는 모든 값을 자동으로 환경변수로 만듭니다.
             # 아래와 같이 루프문으로도 처리 가능!
-             {{- range $key, $val := .Values.env }}
-             - name: {{ $key }}
-               value: {{ $val | quote }}
-             {{- end }}
+            {{- range $key, $val := .Values.env }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
 
             # 2. MySQL 접속 정보를 'mysql-credentials' Secret에서 가져옵니다.
             - name: SPRING_DATASOURCE_USERNAME
